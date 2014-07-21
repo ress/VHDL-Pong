@@ -5,6 +5,6 @@ Pong features:
  * Sound (use any pin on the board, connect it to one wire, ground the other one)
  * Lifebars
  * Fancy Game Over graphic
- * Keyboard input (A/Z, K/M are the control keys, could vary depend on your keyboard though.)
+ * Keyboard input (A/Z, K/M are the control keys, could vary depending on your keyboard though.)
 
 Enjoy. 
