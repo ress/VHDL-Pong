@@ -120,6 +120,7 @@ begin
 
 	kbController : KeyboardController port map ( clk, kb_clk, kb_data, leftPaddleDirection, rightPaddleDirection );
 
+	-- Controls length of beep tone
 	soundScaler : process(clk)
 	begin
 		if clk'event and clk='1' then
@@ -168,6 +169,8 @@ begin
 		end if;
 	end process clockScaler;
 	
+	-- Allows Ball movement on clock pulse
+	-- Stops at VGA border	
 	ballMovementClockScaler : process(clk)
 	begin
 		if clk'event and clk = '1' then
@@ -180,6 +183,8 @@ begin
 		end if;
 	end process ballMovementClockScaler;
 	
+	-- Allows Paddle movement on clock pulse
+	-- Stops at VGA border
 	paddleMovementClockScaler : process(clk)
 	begin
 		if clk'event and clk = '1' then
@@ -191,7 +196,7 @@ begin
 			end if;
 		end if;
 	end process paddleMovementClockScaler;
-		
+
 	signalTiming : process(halfClock)
 	begin
 		if halfClock'event and halfClock = '1' then
@@ -408,6 +413,8 @@ begin
 		end if;
 	end process colorSetter;
 	
+	-- Left Player Control
+	-- Stops at Limit
 	leftPaddleMovement : process(paddleMovementClock)
 	begin
 		if paddleMovementClock'event and paddleMovementClock = '1' then
@@ -418,6 +425,8 @@ begin
 		end if;
 	end process leftPaddleMovement;
 	
+	-- Right Player Control
+	-- Stops at limit
 	rightPaddleMovement : process(paddleMovementClock)
 	begin
 		if paddleMovementClock'event and paddleMovementClock = '1' then
@@ -430,7 +439,7 @@ begin
 	
 	ballMovement : process(ballMovementClock,gameOver,soundPlingCounter)
 	begin
-		if gameOver = '1' then
+		if gameOver = '1' then	-- Centers and stops ball
 			ballX <= 319;
 			ballY <= 239;
 			ballSpeedX <= 0;
@@ -490,6 +499,7 @@ begin
 		end if;
 	end process ballMovement;
 	
+	-- VGA Controller
 	draw : process(photonX, photonY, halfClock)
 	begin
 		if halfClock'event and halfClock = '1' then
